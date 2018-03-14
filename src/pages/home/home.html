@@ -1,14 +1,34 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Search
     </ion-title>
   </ion-navbar>
+  <ion-searchbar (ionInput)="getResults($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item }}
+    </ion-item>
+  </ion-list>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <!-- On affiche les résultats de la recherche -->
+  <ion-list>
+    <ion-list-header *ngIf="results">
+      Results
+    </ion-list-header>
+    <ion-list-header *ngIf="!results">
+      No results    
+    </ion-list-header>
+    <ion-item *ngFor="let current of results">
+      <ion-thumbnail item-start>
+        <img [src]="current.image">
+      </ion-thumbnail>
+      <h2>{{ current.title }}</h2>
+      <p>{{ current.author }}</p>
+      <button ion-button clear item-end>></button>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
