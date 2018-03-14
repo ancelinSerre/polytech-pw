@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'page-home',
@@ -8,7 +9,6 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   results: Result[];
-  searchQuery: string = "";
 
   constructor(public navCtrl: NavController) {
 

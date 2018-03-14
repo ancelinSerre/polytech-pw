@@ -15,10 +15,10 @@
 <ion-content>
   <!-- On affiche les résultats de la recherche -->
   <ion-list>
-    <ion-list-header *ngIf="results">
+    <ion-list-header *ngIf="results && results.length > 0">
       Results
     </ion-list-header>
-    <ion-list-header *ngIf="!results">
+    <ion-list-header *ngIf="!results || results && results.length == 0">
       No results    
     </ion-list-header>
     <ion-item *ngFor="let current of results">
