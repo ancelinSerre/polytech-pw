@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { NgIf } from "@angular/common";
+import { DetailsPage } from '../details/details';
 
 @Component({
   selector: 'page-home',
@@ -9,9 +9,9 @@ import { NgIf } from "@angular/common";
 export class HomePage {
 
   results: Result[];
-
+  pushPage: any;
   constructor(public navCtrl: NavController) {
-
+    this.pushPage = DetailsPage;
   }
 
   // Appelé à chaque fois que tu écris dans la search bar
@@ -26,7 +26,7 @@ export class HomePage {
 export interface Result {
   title: string;
   author: string;
-  date: number; // faudra metter un object;
+  date: number; // faudra mettre un object;
   image: string;
 }
 

@@ -5,11 +5,6 @@
     </ion-title>
   </ion-navbar>
   <ion-searchbar (ionInput)="getResults($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      {{ item }}
-    </ion-item>
-  </ion-list>
 </ion-header>
 
 <ion-content>
@@ -18,16 +13,16 @@
     <ion-list-header *ngIf="results && results.length > 0">
       Results
     </ion-list-header>
-    <ion-list-header *ngIf="!results || results && results.length == 0">
+    <ion-list-header *ngIf="!results || results.length == 0">
       No results    
     </ion-list-header>
-    <ion-item *ngFor="let current of results">
+    <ion-item *ngFor="let movie of results">
       <ion-thumbnail item-start>
-        <img [src]="current.image">
+        <img [src]="movie.image">
       </ion-thumbnail>
-      <h2>{{ current.title }}</h2>
-      <p>{{ current.author }}</p>
-      <button ion-button clear item-end>></button>
+      <h2>{{ movie.title }}</h2>
+      <p>{{ movie.author }}</p>
+      <button ion-button clear item-end [navPush]="pushPage" [navParams]="movie" >></button>
     </ion-item>
   </ion-list>
 

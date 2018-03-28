@@ -7,15 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>details</ion-title>
+    <ion-title>Details</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h1>{{}}</h1>
-  <h3>Author : {{}}</h3>
-  <h3>Date : {{movie}}</h3>
+  <h3>Author : {{movie.author}}</h3>
+  <h3>Date : {{movie.date}}</h3>
   <img [src]="movie.image" [alt]="movie.title">
 </ion-content>
