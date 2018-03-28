@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import { DetailsPage } from '../details/details';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { apiKey } from '../../app/tmdb';
 
 @Component({
   selector: 'page-home',
@@ -8,46 +10,64 @@ import { DetailsPage } from '../details/details';
 })
 export class HomePage {
 
-  results: Result[];
+  results: Observable<Result[]>;
   pushPage: any;
-  constructor(public navCtrl: NavController) {
+  /**
+   * Constructeur de la page
+   * @param navCtrl 
+   */
+  constructor(public http: HttpClient) {
+    this.results = Observable.of([]);
     this.pushPage = DetailsPage;
   }
 
-  // Appelé à chaque fois que tu écris dans la search bar
-  getResults(ev: any) {
-    // val récupère la valeur contenue dans l'input de la search bar
+  /**
+   * Listener pour l'évènement écriture dans la search bar
+   * @param ev variable d'environnement
+   */
+  getResults(ev: any) 
+  {
+    /* val récupère la valeur contenue dans l'input de la search bar */
     let val = ev.target.value;
-    return val ? this.results = tabResults : this.results = [];
+    if(val)
+      this.results = this.fetchResults(val);
+    else
+      this.results = Observable.of([]);
+  }
+  
+  /**
+   * Récupère les résultats de la recherche initiée par l'user
+   * @param query 
+   * @returns Observable<Result[]>
+   */
+  fetchResults(query : string) : Observable<Result[]>
+  {
+    let url : string = 'https://api.themoviedb.org/3/search/movie'
+    return this.http.get<Result[]>(url, 
+    {
+      params:
+      {
+        api_key : apiKey,
+        query: query,
+        language: 'fr'
+      }
+    }).pluck('results');
   }
 }
 
-// Interface pour décrire un résultat de recherche
-export interface Result {
-  title: string;
-  author: string;
-  date: number; // faudra mettre un object;
-  image: string;
+/* Interface pour décrire un résultat de recherche */
+export interface Result {  
+  vote_count: number,
+  id: number,
+  video: boolean,
+  vote_average: number,
+  title: string,
+  popularity: number,
+  poster_path: string,
+  original_language: string,
+  original_title: string,
+  backdrop_path: string,
+  adult: false,
+  overview: string,
+  release_date: string
 }
-
-
-const tabResults: Result[] = [
-  {
-    title: "La cambrioleuse",
-    author: "Jacquie",
-    date: 1,
-    image: "https://pbs.twimg.com/profile_images/627117609444581380/7YG7kxA4_400x400.png"
-  },
-  {
-    title: "Fast and Furious 51",
-    author: "Marc Bide",
-    date: 2,
-    image: "https://pbs.twimg.com/profile_images/888969645/30116_117264888296255_117264014963009_164865_6947075_n_400x400.jpg"
-  },
-  {
-    title: "Plus belle la vie - Le Film",
-    author: "Jeanine Cagole",
-    date: 3,
-    image: "http://scrat.hellocoton.fr/img/classic/gipsy-rapper-reprend-wiggle-de-jason-derulo-16711334.jpg"
-  }
-];

@@ -14,7 +14,10 @@
 
 
 <ion-content padding>
-  <h3>Author : {{movie.author}}</h3>
-  <h3>Date : {{movie.date}}</h3>
-  <img [src]="movie.image" [alt]="movie.title">
+  <h3>Titre: {{movie.title}}</h3>
+  <img [src]="'https://image.tmdb.org/t/p/w185'+movie.poster_path" [alt]="movie.title">
+  <p><b>Note moyenne : </b>{{movie.vote_average}}</p><br>
+  <p><b>Langage original</b> : {{movie.original_language}}</p>
+  <p><b>Description</b> : {{movie.overview}}</p>
+  <p><b>Popularity</b> : {{movie.popularity}}</p>
 </ion-content>

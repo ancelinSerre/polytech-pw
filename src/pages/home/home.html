@@ -10,18 +10,18 @@
 <ion-content>
   <!-- On affiche les résultats de la recherche -->
   <ion-list>
-    <ion-list-header *ngIf="results && results.length > 0">
+    <ion-list-header *ngIf="(results | async)?.length > 0">
       Results
     </ion-list-header>
-    <ion-list-header *ngIf="!results || results.length == 0">
+    <ion-list-header *ngIf="(results | async)?.length == 0">
       No results    
     </ion-list-header>
-    <ion-item *ngFor="let movie of results">
+    <ion-item *ngFor="let movie of (results | async)">
       <ion-thumbnail item-start>
-        <img [src]="movie.image">
+        <img [src]=" 'https://image.tmdb.org/t/p/w90'+movie.poster_path ">
       </ion-thumbnail>
       <h2>{{ movie.title }}</h2>
-      <p>{{ movie.author }}</p>
+      <p>{{ movie.release_date }}</p>
       <button ion-button clear item-end [navPush]="pushPage" [navParams]="movie" >></button>
     </ion-item>
   </ion-list>
