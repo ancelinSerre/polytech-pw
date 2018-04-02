@@ -7,21 +7,18 @@
   <ion-searchbar (ionInput)="getResults($event)"></ion-searchbar>
 </ion-header>
 
+<!-- On affiche les résultats de la recherche -->
 <ion-content>
-  <!-- On affiche les résultats de la recherche -->
   <ion-list>
-    <ion-list-header *ngIf="(results | async)?.length > 0">
-      Results
+    <ion-list-header>
+      {{(results | async)?.length > 0 ? 'Results' : 'No Results'}}
     </ion-list-header>
-    <ion-list-header *ngIf="(results | async)?.length == 0">
-      No results    
-    </ion-list-header>
-    <ion-item *ngFor="let movie of (results | async)">
+    <ion-item *ngFor="let movie of (results | async)" padding>
       <ion-thumbnail item-start>
-        <img [src]=" 'https://image.tmdb.org/t/p/w90'+movie.poster_path ">
+        <img [src]=" 'https://image.tmdb.org/t/p/w45'+movie.poster_path ">
       </ion-thumbnail>
       <h2>{{ movie.title }}</h2>
-      <p>{{ movie.release_date }}</p>
+      <p>{{ movie.release_date | date:'dd/MM/yyyy' }}</p>
       <button ion-button clear item-end [navPush]="pushPage" [navParams]="movie" >></button>
     </ion-item>
   </ion-list>

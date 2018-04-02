@@ -51,6 +51,7 @@ export class HomePage {
         query: query,
         language: 'fr'
       }
+      /* Pluck nous permet de récupérer uniquement le champ 'results' */
     }).pluck('results');
   }
 }
